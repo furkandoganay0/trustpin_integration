@@ -1,10 +1,10 @@
 services:
   backend:
-    build: ..
+    build: .
     ports:
       - "8080:8080"
     env_file:
-      - ../config/.env
+      - ./config/.env
     depends_on:
       - db
       - redis
