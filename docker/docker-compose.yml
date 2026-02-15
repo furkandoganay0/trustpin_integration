@@ -1,0 +1,18 @@
+services:
+  backend:
+    build: ..
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../config/.env
+    depends_on:
+      - db
+      - redis
+  db:
+    image: postgres:16
+    environment:
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_USER=user
+      - POSTGRES_DB=app
+  redis:
+    image: redis:7

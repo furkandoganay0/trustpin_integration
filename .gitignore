@@ -1,0 +1,10 @@
+# Secrets
+config/.env
+
+# Binaries
+/bin/
+*.exe
+*.out
+
+# OS
+.DS_Store
