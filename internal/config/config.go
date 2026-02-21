@@ -31,7 +31,7 @@ func Load() Config {
 		RedisAddr:       getenv("REDIS_ADDR", ""),
 		TrustPinBaseURL: getenv("TRUSTPIN_BASE_URL", "http://trustpin.kaizen3.online"),
 		TrustPinAPIKey:  getenv("TRUSTPIN_API_KEY", ""),
-		JWTIssuer:       getenv("JWT_ISSUER", "trustpit"),
+		JWTIssuer:       getenv("JWT_ISSUER", "trustpin"),
 		JWTAudience:     getenv("JWT_AUDIENCE", "mobile"),
 		JWTPublicKeyPEM: normalizePEM(getenv("JWT_PUBLIC_KEY", "")),
 		JWTPrivateKeyPEM: normalizePEM(getenv("JWT_PRIVATE_KEY", "")),

@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Trustpit Integration API
+  title: Trustpin Integration API
   version: 1.0.0
 servers:
   - url: /
