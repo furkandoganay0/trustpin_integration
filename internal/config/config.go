@@ -77,5 +77,9 @@ func normalizePEM(v string) string {
 	if v == "" {
 		return v
 	}
-	return strings.ReplaceAll(v, "\\n", "\n")
+	v = strings.TrimSpace(v)
+	v = strings.TrimPrefix(v, "\"")
+	v = strings.TrimSuffix(v, "\"")
+	v = strings.ReplaceAll(v, "\\n", "\n")
+	return strings.TrimSpace(v)
 }
