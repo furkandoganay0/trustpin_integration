@@ -61,7 +61,7 @@ func Load() Config {
 
 	return Config{
 		Env:             getenv("APP_ENV", "dev"),
-		Port:            getenv("PORT", "8080"),
+		Port:            getenv("PORT", "8083"),
 		DBDSN:           getenv("DB_DSN", ""),
 		RedisAddr:       getenv("REDIS_ADDR", ""),
 		TrustPinBaseURL: getenv("TRUSTPIN_BASE_URL", "http://trustpin.kaizen3.online"),

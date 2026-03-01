@@ -79,7 +79,7 @@ Compose, `backend` servisi için `../config/.env` dosyasını (`docker` dizinini
 `internal/config.Load()` fonksiyonunda kullanılan ortam değişkenleri (varsayılanlar parantez içinde):
 
 - `APP_ENV` : Uygulama ortamı (`dev`)
-- `PORT` : HTTP portu (`8080`)
+- `PORT` : HTTP portu (`8083`)
 - `DB_DSN` : Postgres DSN (ör: `postgres://user:pass@host:5432/dbname?sslmode=disable`). Boşsa bellek-içi repo kullanılır.
 - `REDIS_ADDR` : Redis adresi (ör: `localhost:6379`). Boşsa bellek-içi nonce store kullanılır.
 - `TRUSTPIN_BASE_URL` : Trustpin temel URL'i

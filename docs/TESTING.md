@@ -24,8 +24,8 @@
 
 3) Test endpoints:
 
-   - Swagger UI: http://localhost:8080/swagger/
-   - Health: http://localhost:8080/healthz
+   - Swagger UI: http://localhost:8083/swagger/
+   - Health: http://localhost:8083/healthz
 
    Import Postman collection:
    - `docs/postman_collection.json`
