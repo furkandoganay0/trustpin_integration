@@ -5,7 +5,11 @@
 1) Create env file from example and fill JWT keys:
 
    - Copy `config/.env.example` to `config/.env`
-   - Put your PEM keys into `JWT_PUBLIC_KEY` and `JWT_PRIVATE_KEY` (single line, with `\n`)
+    - You can either put the PEM text directly into `JWT_PUBLIC_KEY` /
+       `JWT_PRIVATE_KEY` (single line, escaping newlines with `\n`), or
+       simply point to the files already present at `config/jwt_public.pem`
+       and `config/jwt_private.pem` by setting `JWT_PUBLIC_KEY_FILE` and
+       `JWT_PRIVATE_KEY_FILE` instead.
 
 2) Load env vars and run the server:
 

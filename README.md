@@ -88,9 +88,25 @@ Compose, `backend` servisi için `../config/.env` dosyasını (`docker` dizinini
 - `JWT_AUDIENCE` : JWT audience
 - `JWT_PUBLIC_KEY` : Public key PEM (tek satırda `\\n` ile escape edilmiş olabilir)
 - `JWT_PRIVATE_KEY` : Private key PEM
+#
+# **Anahtar dosyası kullanımı**
+#
+# Proje kökünde `config/jwt_public.pem` ve `config/jwt_private.pem`
+# dosyaları bulunmaktadır. `JWT_PUBLIC_KEY_FILE` veya
+# `JWT_PRIVATE_KEY_FILE` değişkenlerini ayarlayarak bu dosyalardan (veya
+# başka bir yoldaki dosyadan) anahtarları otomatik okuyabilirsiniz. Eğer
+# dosya yolları sağlanmazsa ve `JWT_PUBLIC_KEY`/`JWT_PRIVATE_KEY` boşsa, bu
+# varsayılan dosyalar denenir.
 - `HTTP_TIMEOUT` : Trustpin çağrıları için timeout (ör: `5s`)
 - `RETRY_MAX` : Trustpin retry maksimum deneme sayısı
 - `RETRY_BACKOFF` : Retry backoff (örn: `200ms`)
+
+# JWT key olabilir:
+#   * `JWT_PUBLIC_KEY`/`JWT_PRIVATE_KEY` -- PEM metni direkt olarak, veya
+#   * `JWT_PUBLIC_KEY_FILE`/`JWT_PRIVATE_KEY_FILE` -- anahtar içeren bir dosya
+#     yolu. Dosya yolu verilirse içeriği okur ve çevrilen PEM'i kullanır.
+#     Yerel geliştirme için `config/jwt_public.pem` ve
+#     `config/jwt_private.pem` otomatik olarak aranır.
 
 Örnek `.env` içeriği: `config/.env.example` dosyasını inceleyin.
 

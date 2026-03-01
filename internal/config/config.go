@@ -24,6 +24,41 @@ type Config struct {
 }
 
 func Load() Config {
+	// support reading JWT keys either directly from env variables or from
+	// separate files. two environment variables are recognized for each key:
+	//   JWT_PUBLIC_KEY, JWT_PRIVATE_KEY          // raw PEM string
+	//   JWT_PUBLIC_KEY_FILE, JWT_PRIVATE_KEY_FILE // path to file containing PEM
+	//
+	// If both a file and a raw value are provided, the file takes precedence.
+	// As a convenience when running locally we also look for the default
+	// files `config/jwt_public.pem` and `config/jwt_private.pem` if nothing
+	// else is set.
+
+	pubPem := getenv("JWT_PUBLIC_KEY", "")
+	if path := os.Getenv("JWT_PUBLIC_KEY_FILE"); path != "" {
+		if data, err := os.ReadFile(path); err == nil {
+			pubPem = string(data)
+		}
+	}
+	if pubPem == "" {
+		// try default file relative to project root
+		if data, err := os.ReadFile("config/jwt_public.pem"); err == nil {
+			pubPem = string(data)
+		}
+	}
+
+	privPem := getenv("JWT_PRIVATE_KEY", "")
+	if path := os.Getenv("JWT_PRIVATE_KEY_FILE"); path != "" {
+		if data, err := os.ReadFile(path); err == nil {
+			privPem = string(data)
+		}
+	}
+	if privPem == "" {
+		if data, err := os.ReadFile("config/jwt_private.pem"); err == nil {
+			privPem = string(data)
+		}
+	}
+
 	return Config{
 		Env:             getenv("APP_ENV", "dev"),
 		Port:            getenv("PORT", "8080"),
@@ -33,8 +68,8 @@ func Load() Config {
 		TrustPinAPIKey:  getenv("TRUSTPIN_API_KEY", ""),
 		JWTIssuer:       getenv("JWT_ISSUER", "trustpin"),
 		JWTAudience:     getenv("JWT_AUDIENCE", "mobile"),
-		JWTPublicKeyPEM: normalizePEM(getenv("JWT_PUBLIC_KEY", "")),
-		JWTPrivateKeyPEM: normalizePEM(getenv("JWT_PRIVATE_KEY", "")),
+		JWTPublicKeyPEM: normalizePEM(pubPem),
+		JWTPrivateKeyPEM: normalizePEM(privPem),
 		HTTPTimeout:     getDuration("HTTP_TIMEOUT", 5*time.Second),
 		RetryMax:        getInt("RETRY_MAX", 2),
 		RetryBackoff:    getDuration("RETRY_BACKOFF", 200*time.Millisecond),
