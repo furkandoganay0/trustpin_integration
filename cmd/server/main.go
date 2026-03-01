@@ -24,7 +24,29 @@ import (
 
 func main() {
 	cfg := config.Load()
+	// note: when troubleshooting key loading issues it can be helpful to
+	// inspect the contents being passed to the JWT validator. we don't want
+	// to log entire private keys, but knowing that something was read and the
+	// length/prefix can surface mistakes such as an empty string or wrong file
+	// being mounted.
+	pub := cfg.JWTPublicKeyPEM
+	priv := cfg.JWTPrivateKeyPEM
+	prefix := func(s string, n int) string {
+		if len(s) <= n {
+			return s
+		}
+		return s[:n] + "..."
+	}
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	logger.Info("loaded_jwt_keys",
+		"public_len", len(pub),
+		"public_prefix", prefix(pub, 64),
+		"private_len", len(priv),
+		"private_prefix", prefix(priv, 64),
+	)
+
+	// continue with normal startup, using the same logger defined above
+	// // (logger already created above)
 
 	jwtValidator, err := middleware.NewJWTValidator(cfg.JWTPublicKeyPEM, cfg.JWTIssuer, cfg.JWTAudience)
 	if err != nil {
