@@ -10,6 +10,7 @@ WORKDIR /app
 RUN apk add --no-cache curl
 COPY --from=build /app/bin/server /app/server
 COPY --from=build /app/docs /app/docs
+COPY --from=build /app/config /app/config
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s CMD curl -fsS http://localhost:8080/healthz || exit 1
 ENTRYPOINT ["/app/server"]
